@@ -1,0 +1,28 @@
+import hashlib
+import os
+
+def generate_file_hash(file_path="sample.txt", algorithm="sha256"):
+    """Generates MD5 or SHA256 hash for a given file."""
+    try:
+        if not os.path.exists(file_path):
+            print(f"[-] File '{file_path}' not found.")
+            return None
+        hash_func = hashlib.md5() if algorithm.lower() == "md5" else hashlib.sha256()
+
+        with open(file_path, "rb") as f:
+            while chunk := f.read(8192):
+                hash_func.update(chunk)
+        file_hash = hash_func.hexdigest()
+        print(f"[+] {algorithm.upper()} Hash generated: {file_hash}")
+        return file_hash
+    except Exception as e:
+        print(f"[-] Error generating hash: {e}")
+        return None
+if __name__ == "__main__":
+    generate_file_hash()
+#Purpose: Computes MD5 or SHA-256 checksums for files.
+#Memory Safe: Processes large files in 8KB chunks.
+#Error Handling: Built-in try/except for missing files and I/O exceptions.
+#HOW TO RUN
+#INSTALL PYTHON & HASHLIB & OS LIBLARIES
+#OR TEXT ME, WILL BE DONE FOR 25-100$. MY TELEGRAM: @Myhamed91
